@@ -7,6 +7,21 @@
     <title>All campground</title>
 </head>
 <body>
+
+    <h1>List of all the campgrounds</h1>
+
+    <div>
+        <a href="/campground/new">Create new campground</a>
+    </div>
+
+    <ul>
+
+    <% for(let camp of campgrounds){ %>
+        <li><a href="/campground/<%=camp.id%>"><%=camp.title%></a></li>
+    <%}%>
+
+    </ul>
+    
     
 
     
