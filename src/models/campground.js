@@ -7,7 +7,13 @@ const CampgroundSchema=new Schema({
     price:Number,
     description:String,
     location:String,
-    image:String
+    image:String,
+    reviews: [{
+        review: {
+            type:mongoose.Types.ObjectId,  // reviews will be an array of obj that refer to reviews
+            ref:"Review"                   // We ref to the name of the model as we defined.
+        }
+    }]
     
 })
 

@@ -8,7 +8,7 @@ const Campground =require("./src/models/campground");
 const ExpressError= require("./utils/errors/ExpressError");
 const catchAsync=require("./utils/errors/catchAsync");
 const Joi=require("joi");
-const campgroundJoiSchema= require("./utils/JoiSchema/campgrooundJoiSchema")
+const validateCampgroundJoiSchema= require("./utils/JoiSchema/validateCampgrooundJoiSchema")
 
 const app= express();
 const PORT = process.env.PORT || 3000;
@@ -24,13 +24,6 @@ app.set('views', path.join(__dirname, 'views'))
 app.use(express.urlencoded({extended:true})); //for post request 
 app.use(methodoverride("_method"));
 app.use(express.json());
-
-
-
-
-
-
-
 
 
 
@@ -53,7 +46,7 @@ app.get("/campgrounds/new",(req,res)=>{
 })
 
 //2: post/form accept
-app.post("/campgrounds",catchAsync(async (req,res)=>{
+app.post("/campgrounds",validateCampgroundJoiSchema,catchAsync(async (req,res)=>{
     const campground = new Campground(req.body.campground);
     await campground.save();
     res.status(200).redirect(`campgrounds/${campground.id}`);
@@ -69,7 +62,7 @@ app.get("/campgrounds/:id/edit",catchAsync(async (req,res)=>{
 
 }))
 
-app.put("/campgrounds/:id",catchAsync(async (req,res)=>{
+app.put("/campgrounds/:id",validateCampgroundJoiSchema,catchAsync(async (req,res)=>{
     const campground=await Campground.findByIdAndUpdate(req.params.id);
     res.status(200).redirect(`/campgrounds/${campground.id}`);
 }))
@@ -109,11 +102,11 @@ app.all("*",(req,res,next)=>{
 
 
 
-app.use((err,req,res,next)=>{
-    const {message="Error",status}=err
-    res.send({err,message,status});
+app.use((err, req, res, next) => {
+    const { statusCode = 500 } = err;
+    if (!err.message) err.message = 'Oh No, Something Went Wrong!'
+    res.status(statusCode).render('error', { err })
 })
-
 
 
 
