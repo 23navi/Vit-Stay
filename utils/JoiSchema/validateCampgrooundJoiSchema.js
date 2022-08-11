@@ -14,8 +14,9 @@ const validateCampgroundJoiSchema=(req,res,next)=>{
 
 const result= CampgroundJoiSchema.validate(req.body);
 
-const message=result.error.details.map(el=>el.message);
+
 if(result.error){
+    const message=result.error.details.map(el=>el.message);
     throw new ExpressError(message,400)
 }else{
     next();
