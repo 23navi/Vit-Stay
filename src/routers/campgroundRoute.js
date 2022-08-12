@@ -5,6 +5,8 @@ const Joi=require("joi");
 const validateCampgroundJoiSchema= require("../../utils/JoiSchema/validateCampgrooundJoiSchema");
 const validateReviewJoiSchema=require("../../utils/JoiSchema/validateReviewJoiSchema");
 
+const {isLoggedIn}= require("../../middleware/isLoggedIn.js")
+
 
 
 const express= require("express")
@@ -24,12 +26,12 @@ router.get("/campgrounds",catchAsync(async (req,res)=>{
 //create new campground
 
 //1: get/form 
-router.get("/campgrounds/new",(req,res)=>{
+router.get("/campgrounds/new",isLoggedIn,(req,res)=>{
     res.status(200).render("campgrounds/new.ejs");
 })
 
 //2: post/form accept
-router.post("/campgrounds",validateCampgroundJoiSchema,catchAsync(async (req,res)=>{
+router.post("/campgrounds",isLoggedIn,validateCampgroundJoiSchema,catchAsync(async (req,res)=>{
     
     const campground = new Campground(req.body.campground);
     await campground.save();
@@ -41,13 +43,13 @@ router.post("/campgrounds",validateCampgroundJoiSchema,catchAsync(async (req,res
 //edit campground
 //1: Edit form
 
-router.get("/campgrounds/:id/edit",catchAsync(async (req,res)=>{
+router.get("/campgrounds/:id/edit",isLoggedIn,catchAsync(async (req,res)=>{
     const campground= await Campground.findById(req.params.id);
     res.status(200).render("campgrounds/edit.ejs",{campground})
 
 }))
 
-router.put("/campgrounds/:id",validateCampgroundJoiSchema,catchAsync(async (req,res)=>{
+router.put("/campgrounds/:id",isLoggedIn,validateCampgroundJoiSchema,catchAsync(async (req,res)=>{
     const campground=await Campground.findByIdAndUpdate(req.params.id);
     req.flash("success","Successfully updated the campground");
     res.status(200).redirect(`/campgrounds/${campground.id}`);
@@ -72,7 +74,7 @@ router.get("/campgrounds/:id",catchAsync(async (req,res)=>{
 
 
 //Delete a campground
-router.delete("/campgrounds/:id",catchAsync(async (req,res)=>{
+router.delete("/campgrounds/:id",isLoggedIn,catchAsync(async (req,res)=>{
     await Campground.findByIdAndDelete(req.params.id);
     req.flash("success","Successfully deleted the campground");
     res.redirect("/campgrounds");

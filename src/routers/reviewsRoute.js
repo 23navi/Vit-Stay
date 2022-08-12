@@ -1,7 +1,6 @@
 const Review =require("../models/reviews");
 const ExpressError= require("../../utils/errors/ExpressError");
 const catchAsync=require("../../utils/errors/catchAsync");
-const Joi=require("joi");
 const Campground =require("../models/campground");
 const validateCampgroundJoiSchema= require("../../utils/JoiSchema/validateCampgrooundJoiSchema");
 const validateReviewJoiSchema=require("../../utils/JoiSchema/validateReviewJoiSchema");
