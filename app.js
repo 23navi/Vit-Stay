@@ -1,21 +1,18 @@
 const express = require("express");
-const {mongoose} = require("mongoose");
 const path= require("path");
 require("./src/db/mongoose");
 const ejsMate = require('ejs-mate');
 const methodoverride=require("method-override");
-const Campground =require("./src/models/campground");
 const ExpressError= require("./utils/errors/ExpressError");
 const catchAsync=require("./utils/errors/catchAsync");
-const Joi=require("joi");
-const validateCampgroundJoiSchema= require("./utils/JoiSchema/validateCampgrooundJoiSchema");
-const validateReviewJoiSchema=require("./utils/JoiSchema/validateReviewJoiSchema");
-const Review = require("./src/models/reviews");
+
+
 
 
 //routers
 const campgroundRouter=require("./src/routers/campgroundRoute");
 const reviewRouter=require("./src/routers/reviewsRoute");
+
 
 
 const app= express();
@@ -26,6 +23,7 @@ app.engine('ejs', ejsMate)
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'))
 
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.urlencoded({extended:true})); //for post request 
 app.use(methodoverride("_method"));
