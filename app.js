@@ -7,10 +7,18 @@ const catchAsync=require("./utils/errors/catchAsync");
 const session = require("express-session");
 const flash = require("connect-flash");
 
+const User= require("./src/models/users")
+
+
+// no need for passport-local-mongoose
+const passport=require("passport")
+const localStrategy= require("passport-local")
+
 
 //routers
 const campgroundRouter=require("./src/routers/campgroundRoute");
 const reviewRouter=require("./src/routers/reviewsRoute");
+const userRouter=require("./src/routers/userRouter");
 
 require("./src/db/mongoose"); 
 
@@ -47,6 +55,18 @@ const sessionConfig={
 app.use(session(sessionConfig))
 app.use(flash());
 
+
+//define passport middleware after defining express session
+
+app.use(passport.initialize())
+app.use(passport.session())
+
+passport.use(new localStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser())
+passport.deserializeUser(User.deserializeUser())
+
+
 app.use((req,res,next)=>{
     res.locals.success=req.flash('success');
     res.locals.error=req.flash('error');
@@ -55,6 +75,7 @@ app.use((req,res,next)=>{
 
 app.use(campgroundRouter); // we are not changing the route like colt steele
 app.use(reviewRouter);
+app.use(userRouter);
 
 
 
@@ -64,6 +85,12 @@ app.get("/",(req,res)=>{
     res.render("home");
 })
 
+
+app.get("/newUser",async(req,res,next)=>{
+    const user= new User({email:"naviii@gmail.com","username":"Naviii"})
+    const newUser= await User.register(user,"password1234")
+    res.send(newUser)
+})
 
 
 
