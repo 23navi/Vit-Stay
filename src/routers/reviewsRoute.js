@@ -35,7 +35,7 @@ router.delete("/campgrounds/:id/reviews/:revId",catchAsync(async(req,res,next)=>
     //r1= await Review.deleteOne({"id":review.id})
     const r2= await Review.findOneAndDelete({"id":review.id}) //note deleteOne do not trigger a middleware so we need to use findOneAndDelete
     
-    
+    req.flash("success","Successfully deleted the review");
     res.redirect("/campgrounds/"+campground.id)
 }))
 
@@ -49,6 +49,7 @@ router.post("/campgrounds/:id/reviews",validateReviewJoiSchema,catchAsync(async(
     campground.reviews.push(review)
     await campground.save();
     await review.save();
+    req.flash("success","Successfully created a new review");
     res.redirect("/campgrounds/"+req.params.id);
 }))
 
