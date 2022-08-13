@@ -35,13 +35,16 @@ router.get("/login",(req,res,next)=>{
 router.post("/login",validateUserLoginJoiSchema,passport.authenticate("local",{failureFlash:true,failureRedirect:"/login"}),catchAsync(async(req,res,next)=>{
     // this block will only run if the user was successfully logged in ... everything is taken care by passport
     req.flash("success","Welcome back "+`${req.body.username}`);
-    res.redirect('/campgrounds');
+    console.log(req.session)
+    const returnTo= req.session.returnTo || "/campgrounds";
+    console.log(returnTo);
+    res.redirect(returnTo);
 }))
 
 
 router.get("/logout",(req,res,next)=>{
-    req.logOut();
-    res.flash("success","Successfully logged out");
+    req.logOut(()=>{});
+    req.flash("success","Successfully logged out");
     res.redirect("/campgrounds");
 })
 
