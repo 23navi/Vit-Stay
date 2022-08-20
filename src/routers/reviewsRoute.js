@@ -10,6 +10,9 @@ const validateReviewJoiSchema=require("../../utils/JoiSchema/validateReviewJoiSc
 const express= require("express")
 const router= express.Router();
 
+const {isLoggedIn}=require("../../middleware/isLoggedIn")
+const {isAuthorized}=require("../../middleware/isAuthorized");
+
 
 
 
@@ -17,7 +20,7 @@ const router= express.Router();
 
 
 //Delete a campground's review by it's id
-router.delete("/campgrounds/:id/reviews/:revId",catchAsync(async(req,res,next)=>{
+router.delete("/campgrounds/:id/reviews/:revId",isLoggedIn,isAuthorized,catchAsync(async(req,res,next)=>{
     const campground= await Campground.findById(req.params.id);
     const review= await Review.findById(req.params.revId);
 
@@ -42,9 +45,10 @@ router.delete("/campgrounds/:id/reviews/:revId",catchAsync(async(req,res,next)=>
 
 // submit form for reviews on a particular campground
 
-router.post("/campgrounds/:id/reviews",validateReviewJoiSchema,catchAsync(async(req,res,next)=>{
+router.post("/campgrounds/:id/reviews",isLoggedIn,isAuthorized,validateReviewJoiSchema,catchAsync(async(req,res,next)=>{
     const campground= await Campground.findById(req.params.id);
     const review=await new Review(req.body.review)
+    review.author=req.user._id;
     campground.reviews.push(review)
     await campground.save();
     await review.save();

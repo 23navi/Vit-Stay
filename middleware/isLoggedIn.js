@@ -3,7 +3,6 @@ module.exports.isLoggedIn = (req,res,next)=>{
         return next()
     }else{
         req.session.returnTo= req.originalUrl;
-        console.log(req.session.returnTo);
         req.flash("error","You need to login first");
         res.redirect("/login");
     }

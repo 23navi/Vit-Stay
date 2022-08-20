@@ -10,9 +10,13 @@ const CampgroundSchema=new Schema({
     description:String,
     location:String,
     image:String,
+    author:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User"
+    },
     reviews: [{
 
-            type:mongoose.Types.ObjectId,  // reviews will be an array of obj that refer to reviews
+            type:mongoose.Schema.Types.ObjectId,  // reviews will be an array of obj that refer to reviews
             ref:"Review"                   // We ref to the name of the model as we defined.
       
     }]
@@ -20,7 +24,7 @@ const CampgroundSchema=new Schema({
 })
 
 
-const f=
+
 
 CampgroundSchema.post("findOneAndDelete",((async function(campground,next){
     if(campground.reviews.length){

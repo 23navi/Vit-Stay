@@ -3,7 +3,11 @@ const mongoose=require("mongoose");
 
 const reviewSchema=new mongoose.Schema({
     body:String, //Text of the review 
-    rating:Number // numerical value of the rating 1-5 
+    rating:Number, // numerical value of the rating 1-5 
+    author:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User"
+    },
 })
 
 
