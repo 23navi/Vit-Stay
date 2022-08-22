@@ -1,3 +1,10 @@
+if(process.env.NODE_ENV !=="production"){
+    require('dotenv').config();
+}
+
+
+
+
 const express = require("express");
 const path= require("path");
 const ejsMate = require('ejs-mate');
@@ -6,6 +13,7 @@ const ExpressError= require("./utils/errors/ExpressError");
 const catchAsync=require("./utils/errors/catchAsync");
 const session = require("express-session");
 const flash = require("connect-flash");
+
 
 const User= require("./src/models/users")
 
@@ -87,14 +95,6 @@ app.get("/",(req,res)=>{
 })
 
 
-app.get("/newUser",async(req,res,next)=>{
-    const user= new User({email:"naviii@gmail.com","username":"Naviii"})
-    const newUser= await User.register(user,"password1234")
-    res.send(newUser)
-})
-
-
-
 app.all("*",(req,res,next)=>{
     return next(new ExpressError("Page not found",404));
 })
@@ -112,3 +112,8 @@ app.use((err, req, res, next) => {
 app.listen(PORT,()=>{
     console.log(`server running on port ${PORT}`);
 })
+
+
+
+
+
