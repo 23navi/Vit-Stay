@@ -1,7 +1,6 @@
 const Campground= require("../src/models/campground.js")
 
 
-
 //show all campgrounds
 module.exports.index=async (req,res)=>{
     const campgrounds= await Campground.find({});
@@ -22,6 +21,7 @@ module.exports.addPage=async (req,res)=>{
     const campground = new Campground(req.body.campground);
     campground.author= req.user._id;
     await campground.save();
+    console.log(req.file);
     req.flash("success","Successfully created a new campground");
     res.status(200).redirect(`campgrounds/${campground.id}`);
 }

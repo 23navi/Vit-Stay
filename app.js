@@ -3,8 +3,6 @@ if(process.env.NODE_ENV !=="production"){
 }
 
 
-
-
 const express = require("express");
 const path= require("path");
 const ejsMate = require('ejs-mate');
@@ -31,7 +29,7 @@ const userRouter=require("./src/routers/userRouter");
 require("./src/db/mongoose"); 
 
 const app= express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 
 
 app.engine('ejs', ejsMate)
@@ -112,7 +110,6 @@ app.use((err, req, res, next) => {
 app.listen(PORT,()=>{
     console.log(`server running on port ${PORT}`);
 })
-
 
 
 

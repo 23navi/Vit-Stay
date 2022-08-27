@@ -2,6 +2,12 @@ const catchAsync=require("../../utils/errors/catchAsync");
 const validateCampgroundJoiSchema= require("../../utils/JoiSchema/validateCampgrooundJoiSchema");
 
 
+const {storage}= require("../../cloudinary/index");
+const multer= require("multer");
+// const imgUpl= multer({dest:"navi"});
+const imgUpl= multer({storage});
+
+
 const {isLoggedIn}= require("../../middleware/isLoggedIn.js")
 
 const campgroundController=require("../../controller/campgroundCotroller");
@@ -14,7 +20,7 @@ const {isAuthorized}=require("../../middleware/isAuthorized"); // as we did modu
 
 router.route("/campgrounds")
     .get(catchAsync(campgroundController.index))
-    .post(isLoggedIn,validateCampgroundJoiSchema,catchAsync(campgroundController.addPage))
+    .post(isLoggedIn,imgUpl.single("img"),validateCampgroundJoiSchema,catchAsync(campgroundController.addPage))
 
 
 router.get("/campgrounds/new",isLoggedIn,campgroundController.showAddPage);
