@@ -20,7 +20,7 @@ const {isAuthorized}=require("../../middleware/isAuthorized"); // as we did modu
 
 router.route("/campgrounds")
     .get(catchAsync(campgroundController.index))
-    .post(isLoggedIn,imgUpl.single("img"),validateCampgroundJoiSchema,catchAsync(campgroundController.addPage))
+    .post(isLoggedIn,imgUpl.array("img"),validateCampgroundJoiSchema,catchAsync(campgroundController.addPage))
 
 
 router.get("/campgrounds/new",isLoggedIn,campgroundController.showAddPage);

@@ -8,7 +8,7 @@ const validateCampgroundJoiSchema=(req,res,next)=>{
             price:Joi.number().required(),
             location: Joi.string().required(),
             description: Joi.string().required(),
-            image:Joi.string()
+            //image:Joi.string()
         }).required()
 })
 

@@ -18,10 +18,11 @@ module.exports.showAddPage=(req,res)=>{
 //add new campground 
 module.exports.addPage=async (req,res)=>{
     
+    const imgArr= req.files.map(f=>({url:f.path,filename:f.filename}));
     const campground = new Campground(req.body.campground);
+    campground.images=imgArr;
     campground.author= req.user._id;
     await campground.save();
-    console.log(req.file);
     req.flash("success","Successfully created a new campground");
     res.status(200).redirect(`campgrounds/${campground.id}`);
 }
