@@ -32,7 +32,7 @@ router.get("/campgrounds/:id/edit",isLoggedIn,isAuthorized,catchAsync(campground
 router.route("/campgrounds/:id")
     .get(catchAsync(campgroundController.showCamp))
     .delete(isLoggedIn,isAuthorized,catchAsync(campgroundController.deleteCamp))
-    .put(isLoggedIn,isAuthorized,validateCampgroundJoiSchema,catchAsync(campgroundController.editCamp))
+    .put(isLoggedIn,isAuthorized,imgUpl.array('img'),validateCampgroundJoiSchema,catchAsync(campgroundController.editCamp))
 
 
 
