@@ -1,7 +1,23 @@
 <% layout('layouts/boilerplate')%>
 <link rel="stylesheet" href="/stylesheets/stars.css">
 
+<div id='map' style='width: 400px; height: 300px;'>
+    
+</div>
+    <script>
+    mapboxgl.accessToken = '<%-process.env.MAPBOX_PUBLIC_TOKEN%>';
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11'
+    });
+    </script>
+
+
 <div class="row">
+
+
+    
+
     <div class="col-6">
 
         <div class="card mb-3">
