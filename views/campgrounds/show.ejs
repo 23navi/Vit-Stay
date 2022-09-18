@@ -1,18 +1,15 @@
 <% layout('layouts/boilerplate')%>
 <link rel="stylesheet" href="/stylesheets/stars.css">
+<script>
+    const mapboxAccessToken = '<%-process.env.MAPBOX_PUBLIC_TOKEN%>';
+</script>
+
 
 <div id='map' style='width: 400px; height: 300px;'>
     
 </div>
-    <script>
-    mapboxgl.accessToken = '<%-process.env.MAPBOX_PUBLIC_TOKEN%>';
-    var map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11',
-        center:[-71,40],
-        zoom:9
-    });
-    </script>
+<script src="/js/showPagemap.js"></script>
+    
 
 
 <div class="row">
