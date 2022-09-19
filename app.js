@@ -12,11 +12,7 @@ const catchAsync=require("./utils/errors/catchAsync");
 const session = require("express-session");
 const flash = require("connect-flash");
 
-const mbxGeocoding= require("@mapbox/mapbox-sdk/services/geocoding")
-const mapboxToken= process.env.MAPBOX_PUBLIC_TOKEN
-const geocoder= mbxGeocoding({
-    accessToken:mapboxToken
-})
+
 
 
 
@@ -96,14 +92,6 @@ app.use(userRouter);
 
 
 app.get("/",async(req,res)=>{
-    console.log(geocoder);
-    const geoData= await geocoder.forwardGeocode({
-        query:"Surat Gujarat",
-        
-    }).send()
-    
-    console.log(geoData.body.features[0].geometry)
-    
     res.render("home");
 })
 
