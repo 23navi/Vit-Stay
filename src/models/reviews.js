@@ -11,7 +11,7 @@ const reviewSchema=new mongoose.Schema({
 })
 
 
-// note : to display the review submit form.. we will display it at show.ejs only which is at campground/:id but to submit the form we will create a new post request 
+// note : to display the review submit form.. we will display it at show.ejs only which is at stay/:id but to submit the form we will create a new post request 
 
 
 const Review= new mongoose.model("Review",reviewSchema);

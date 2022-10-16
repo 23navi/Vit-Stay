@@ -1,9 +1,9 @@
 const Joi=require("joi");
 const ExpressError = require("../errors/ExpressError");
 
-const validateCampgroundJoiSchema=(req,res,next)=>{
-    const CampgroundJoiSchema=Joi.object({
-        campground:Joi.object({
+const validatestayJoiSchema=(req,res,next)=>{
+    const stayJoiSchema=Joi.object({
+        stay:Joi.object({
             title:Joi.string().required(),
             price:Joi.number().required(),
             location: Joi.string().required(),
@@ -13,7 +13,7 @@ const validateCampgroundJoiSchema=(req,res,next)=>{
         deleteImages:Joi.array()
 })
 
-const result= CampgroundJoiSchema.validate(req.body);
+const result= stayJoiSchema.validate(req.body);
 
 
 if(result.error){
@@ -24,4 +24,4 @@ if(result.error){
 }
 }
 
-module.exports=validateCampgroundJoiSchema;
+module.exports=validatestayJoiSchema;

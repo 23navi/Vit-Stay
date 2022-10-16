@@ -21,7 +21,7 @@ router.post("/register",validateUserRegisterJoiSchema,catchAsync(async(req,res,n
     req.login(newUser,(err)=>{
         if(err){ return next(err)}
         req.flash("success",`Welcome ${newUser.username}` );
-        res.redirect("/campgrounds");
+        res.redirect("/stays");
     })
     
 }))
@@ -35,7 +35,7 @@ router.get("/login",(req,res,next)=>{
 router.post("/login",validateUserLoginJoiSchema,passport.authenticate("local",{failureFlash:true,failureRedirect:"/login"}),catchAsync(async(req,res,next)=>{
     // this block will only run if the user was successfully logged in ... everything is taken care by passport
     req.flash("success","Welcome back "+`${req.body.username}`);
-    const returnTo= req.session.returnTo || "/campgrounds";
+    const returnTo= req.session.returnTo || "/stays";
     res.redirect(returnTo);
 }))
 
@@ -43,7 +43,7 @@ router.post("/login",validateUserLoginJoiSchema,passport.authenticate("local",{f
 router.get("/logout",(req,res,next)=>{
     req.logOut(()=>{});
     req.flash("success","Successfully logged out");
-    res.redirect("/campgrounds");
+    res.redirect("/stays");
 })
 
 module.exports= router;
