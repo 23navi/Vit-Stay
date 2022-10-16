@@ -24,3 +24,29 @@
     </div>
 </div>
 <% }%>
+
+
+
+
+
+
+
+<!-- Dynamic pagination -->
+<div>
+    <br>
+
+    <nav aria-label="...">
+        <ul class="pagination pagination-lg justify-content-center">
+            <%let skipVal=0%>
+            <% for(let i=0;i<Math.ceil(campgroundCount/limit);i++){ %>
+                <li class="page-item <%=skip==skipVal?"disabled":""%> ">
+                    <a class="page-link" href="/campgrounds?skip=<%=skipVal%>"><%=i+1%></a>
+                </li>
+                <%skipVal+=limit%>
+            <%} %>
+        </ul>
+    </nav>
+
+</div>
+
+

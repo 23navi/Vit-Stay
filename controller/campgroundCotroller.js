@@ -4,8 +4,13 @@ const {cloudinary}= require("../cloudinary/index")
 
 //show all campgrounds
 module.exports.index=async (req,res)=>{
-    const campgrounds= await Campground.find({});
-    res.status(200).render("campgrounds/index.ejs",{campgrounds})
+
+    let skip=req.query.skip || 0;
+    let limit=req.query.limit || 5;
+
+    const campgrounds= await Campground.find({}).limit(limit).skip(skip);
+    const campgroundCount = await Campground.find({}).count();
+    res.status(200).render("campgrounds/index.ejs",{campgrounds,limit,skip,campgroundCount})
 }
 
 

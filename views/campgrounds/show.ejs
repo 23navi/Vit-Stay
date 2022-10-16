@@ -108,7 +108,10 @@
             </div>
             <button class="btn btn-success">Submit</button>
         </form>
-        <% } %>
+        <% }else{ %>
+            <h2>Reviews</h2>
+        <%} %>
+
         <% for(let review of campground.reviews) { %>
         <div class="card mb-3 ">
             <div class="card-body">
@@ -130,5 +133,27 @@
             </div>
         </div>
         <% } %>
+
+        <%if(campground.reviews.length>0) {%>
+            <div class="d-flex justify-content-center loadMore" style="padding-top: 10px; padding-bottom: 20px;">
+                <button type="button" class="btn btn-primary btn-sm disabled">Load More</button>
+            </div>
+        <%}else{%>
+            <div class="d-flex justify-content-center loadMore" style="padding-top: 10px; padding-bottom: 20px;">
+                <h3>No reviews yet!</h3>
+            </div>
+        <%}%>
+
+
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+
