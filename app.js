@@ -25,7 +25,7 @@ const localStrategy= require("passport-local")
 
 
 //routers
-const campgroundRouter=require("./src/routers/campgroundRoute");
+const stayRouter=require("./src/routers/stayRoute");
 const reviewRouter=require("./src/routers/reviewsRoute");
 const userRouter=require("./src/routers/userRouter");
 
@@ -83,7 +83,7 @@ app.use((req,res,next)=>{
     next();
 })
 
-app.use(campgroundRouter); // we are not changing the route like colt steele
+app.use(stayRouter); // we are not changing the route like colt steele
 app.use(reviewRouter);
 app.use(userRouter);
 

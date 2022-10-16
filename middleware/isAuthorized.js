@@ -1,14 +1,14 @@
 // Middleware to check if the user is authorized to make changes 
 
-const Campground= require("../src/models/campground");
+const stay= require("../src/models/stay");
 
 module.exports.isAuthorized = async(req,res,next)=>{
 
     const {id}= req.params;
-    const campground= await Campground.findById(id);
-    if(!campground.author.equals(req.user._id)){
+    const stay= await stay.findById(id);
+    if(!stay.author.equals(req.user._id)){
         req.flash("error","You are not authorized")
-        return res.redirect(`/campgrounds/${id}`);
+        return res.redirect(`/stays/${id}`);
     }
     next();
 }

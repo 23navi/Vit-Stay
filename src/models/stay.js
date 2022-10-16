@@ -1,10 +1,10 @@
 const mongoose=require("mongoose");
 const catchAsync = require("../../utils/errors/catchAsync");
-const Review=require("../models/reviews")
+const Review=require("./reviews")
 
 const Schema = mongoose.Schema;
 
-const CampgroundSchema=new Schema({
+const staySchema=new Schema({
     title:String,
     price:Number,
     description:String,
@@ -29,13 +29,13 @@ const CampgroundSchema=new Schema({
 })
 
 
-CampgroundSchema.post("findOneAndDelete",((async function(campground,next){
-    if(campground.reviews.length){
-        await Review.deleteMany({id:{$in:campground.reviews}})
+staySchema.post("findOneAndDelete",((async function(stay,next){
+    if(stay.reviews.length){
+        await Review.deleteMany({id:{$in:stay.reviews}})
     }
     next();
 
 })))
 
 
-module.exports = mongoose.model("Campground", CampgroundSchema);
+module.exports = mongoose.model("stay", staySchema);
