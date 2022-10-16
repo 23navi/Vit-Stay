@@ -4,7 +4,9 @@ const mongoose=require("mongoose");
 
 const dbName="yelp-camp";
 
-mongoose.connect("mongodb://127.0.0.1:27017/"+dbName,{
+
+
+mongoose.connect("mongodb+srv://navi:Navi2308@cluster0.vbwsb7v.mongodb.net/vitStay?retryWrites=true&w=majority"+dbName,{
     useNewUrlParser: true,
     useUnifiedTopology:true
 }).then(()=>{

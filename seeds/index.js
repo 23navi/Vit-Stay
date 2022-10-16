@@ -6,7 +6,7 @@ const stay = require('../src/models/stay');
 
 
 
-mongoose.connect('mongodb://localhost:27017/yelp-camp', {
+mongoose.connect('mongodb+srv://navi:Navi2308@cluster0.vbwsb7v.mongodb.net/vitStay?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
