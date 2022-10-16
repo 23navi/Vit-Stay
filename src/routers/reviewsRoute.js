@@ -1,7 +1,7 @@
 const Review =require("../models/reviews");
 const ExpressError= require("../../utils/errors/ExpressError");
 const catchAsync=require("../../utils/errors/catchAsync");
-const stay =require("../models/stay");
+const Stay =require("../models/stay");
 const validatestayJoiSchema= require("../../utils/JoiSchema/validateCampgroundJoiSchema");
 const validateReviewJoiSchema=require("../../utils/JoiSchema/validateReviewJoiSchema");
 
@@ -21,15 +21,15 @@ const {isReviewAuthorized}=require("../../middleware/isReviewAuthorized");
 
 //Delete a stay's review by it's id
 router.delete("/stays/:id/reviews/:revId",isLoggedIn,isReviewAuthorized,catchAsync(async(req,res,next)=>{
-    const stay= await stay.findById(req.params.id);
+    const stay= await Stay.findById(req.params.id);
     const review= await Review.findById(req.params.revId);
 
     //stay.findByIdAndUpdate(id,{$pull:{reviews:revId}});  // remove the value provided from the array
     //Review.findByIdAndDelete(reviewId)
 
-    console.log("remove request: ",req.params.revId)
-    console.log("remove request review selected: ",review)
-    console.log("before removing: ",stay.reviews)
+    // console.log("remove request: ",req.params.revId)
+    // console.log("remove request review selected: ",review)
+    // console.log("before removing: ",stay.reviews)
 
     stay.reviews=stay.reviews.filter((arrReview)=>{
         return arrReview.toString()!==review._id.toString()
@@ -52,7 +52,7 @@ router.delete("/stays/:id/reviews/:revId",isLoggedIn,isReviewAuthorized,catchAsy
 // submit form for reviews on a particular stay
 
 router.post("/stays/:id/reviews",isLoggedIn,validateReviewJoiSchema,catchAsync(async(req,res,next)=>{
-    const stay= await stay.findById(req.params.id);
+    const stay= await Stay.findById(req.params.id);
     const review=await new Review(req.body.review)
     review.author=req.user._id;
     stay.reviews.push(review)

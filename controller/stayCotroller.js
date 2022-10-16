@@ -58,7 +58,7 @@ module.exports.editCamp=async (req,res)=>{
         }
     }
     
-    await Stay.save()
+    await stay.save()
 
     req.flash("success","Successfully updated the stay");
     res.status(200).redirect(`/stays/${stay.id}`);

@@ -38,4 +38,4 @@ staySchema.post("findOneAndDelete",((async function(stay,next){
 })))
 
 
-module.exports = mongoose.model("stay", staySchema);
+module.exports = mongoose.model("Stay", staySchema);
