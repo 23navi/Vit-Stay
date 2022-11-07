@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
 const cities = require('./cities');
 const { places, descriptors } = require('./seedHelpers'); // we exported 2 module.exports... it came as obj
-const stay = require('../src/models/stay');
-
-
+const Stay = require('../src/models/stay');
 
 
 mongoose.connect('mongodb+srv://navi:Navi2308@cluster0.vbwsb7v.mongodb.net/vitStay?retryWrites=true&w=majority', {
@@ -24,12 +22,12 @@ const sample = (array_input) => array_input[Math.floor(Math.random() * array_inp
 
 
 const seedDB = async () => {
-    await stay.deleteMany({});
+    await Stay.deleteMany({});
     for (let i = 0; i < 20; i++) {
         const random1000 = Math.floor(Math.random() * 1000);
         const price = Math.floor(Math.random() * 20) + 10;
-        const author= "62f6656a69b55c0b6d8335d1"
-        const camp = new stay({
+        const author= "63506801fb245685322c9ee1";
+        const camp = new Stay({
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
             title: `${sample(descriptors)} ${sample(places)}`,
             images: [

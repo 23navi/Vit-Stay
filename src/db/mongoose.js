@@ -2,11 +2,11 @@ const mongoose=require("mongoose");
 
 //mongoose
 
-const dbName="yelp-camp";
+// const dbName="yelp-camp";
 
 
 
-mongoose.connect("mongodb+srv://navi:Navi2308@cluster0.vbwsb7v.mongodb.net/vitStay?retryWrites=true&w=majority"+dbName,{
+mongoose.connect("mongodb+srv://navi:Navi2308@cluster0.vbwsb7v.mongodb.net/vitStay?retryWrites=true&w=majority",{
     useNewUrlParser: true,
     useUnifiedTopology:true
 }).then(()=>{
