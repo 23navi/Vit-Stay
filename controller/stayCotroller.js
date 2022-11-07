@@ -49,7 +49,7 @@ module.exports.editCamp=async (req,res)=>{
     stay.images.push(...images);
 
     if(req.body.deleteImages){
-        await Stay.updateOne({$pull:{images:{filename:{$in: req.body.deleteImages}}}},{new: true})
+        await stay.updateOne({$pull:{images:{filename:{$in: req.body.deleteImages}}}},{new: true})
         for(let filename of req.body.deleteImages){
             cloudinary.uploader.destroy(filename)
         }
